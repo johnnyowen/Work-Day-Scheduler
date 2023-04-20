@@ -41,6 +41,6 @@ $(function () {
   function  displayCurrentDateAndTimeTheHeader() {
     var dayAndTime = dayjs();
     $('#currentDay').text(dayAndTime.format('dddd, MMMM DD, YYYY, h:mm:ss a'))
-    setTimeout(displayCurrentDateAndTimeTheHeader, 1000)
   } 
+  setInterval(displayCurrentDateAndTimeTheHeader, 1000)
 });
