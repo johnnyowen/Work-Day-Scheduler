@@ -27,12 +27,18 @@ $(function () {
     $('.time-block').each(function() {
       var timeDiv = $(this).attr('id');
       if (timeDiv < currentHour) {
+        $(this).removeClass("future");
+        $(this).removeClass("present");
         $(this).addClass('past')
       }
       else if (timeDiv == currentHour) {
+        $(this).removeClass("past");
+        $(this).removeClass("future");
         $(this).addClass('present')
       }
       else if (timeDiv > currentHour) {
+        $(this).removeClass("present");
+        $(this).removeClass("past");
         $(this).addClass('future')
       }
     })
