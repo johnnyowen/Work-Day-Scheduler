@@ -1,60 +1,46 @@
+// All function stored in a jQuery call to ensure all HTML and CSS elements load first before executiong functions
 $(function () {
-  init();
-
-var saveBtn = $('.saveBtn');
-console.log(saveBtn);
-saveBtn.on('click', function() {
-  console.log($(this));
-  console.log($(this).siblings().eq(1).val());  //sibling
-  console.log($(this).parent().attr('id'))   //parent
-
-  localStorage.setItem($(this).parent().attr('id'), $(this).siblings().eq(1).val())
-})
-
-function setSavedData() {
+  // Call functions
+  displayCurrentDateAndTimeTheHeader();
+  pastPresentFutureClassForTimeblock();
+  setSavedData();
+  // Buttons
+  var saveBtn = $('.saveBtn');
+  var clearButton = $('#clearButton')
+  // Button actions
+  saveBtn.on('click', function() {
+    localStorage.setItem($(this).parent().attr('id'), $(this).siblings().eq(1).val())
+  })
+  clearButton.on('click', function() {
+    $('textarea').val("");
+    localStorage.clear();
+  })
+  // Places locally stored data in the proper time slots
+  function setSavedData() {
   $('.description').each(function() {
     $(this).val(localStorage.getItem($(this).parent().attr('id')));
   })
-}
-
+  }
+  // Colors time blocks correctly using a current hour comparison and classes
   function pastPresentFutureClassForTimeblock() {
     var currentHour = dayjs().hour();
-    console.log(currentHour);
-
     $('.time-block').each(function() {
       var timeDiv = $(this).attr('id');
-      console.log(timeDiv)
-
       if (timeDiv < currentHour) {
-        console.log("past")
         $(this).addClass('past')
       }
       else if (timeDiv == currentHour) {
-        console.log("present")
         $(this).addClass('present')
       }
       else if (timeDiv > currentHour) {
-        console.log("future")
         $(this).addClass('future')
       }
-
     })
   }
-  
+  // Displays the current date and time
   function  displayCurrentDateAndTimeTheHeader() {
     var dayAndTime = dayjs();
     $('#currentDay').text(dayAndTime.format('dddd, MMMM DD, YYYY, h:mm:ss a'))
     setTimeout(displayCurrentDateAndTimeTheHeader, 1000)
   } 
-
-  function init() {
-    displayCurrentDateAndTimeTheHeader();
-    pastPresentFutureClassForTimeblock();
-    setSavedData();
-  }
-  var clearButton = $('#clearButton')
-  clearButton.on('click', function() {
-    $('textarea').val("");
-    localStorage.clear();
-  })
 });
