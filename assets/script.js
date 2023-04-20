@@ -1,4 +1,4 @@
-// All function stored in a jQuery call to ensure all HTML and CSS elements load first before executiong functions
+// All function stored in a jQuery call to ensure all HTML and CSS elements load first before executing functions
 $(function () {
   // Call functions
   displayCurrentDateAndTimeTheHeader();
